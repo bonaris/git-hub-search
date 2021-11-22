@@ -1,0 +1,38 @@
+21-Nov-21 19:59:53-
+
+21-Nov-21 19:59:53-====== WebDriver manager ======
+21-Nov-21 19:59:53-Current google-chrome version is 96.0.4664
+21-Nov-21 19:59:53-Get LATEST chromedriver version for 96.0.4664 google-chrome
+21-Nov-21 19:59:53-Driver [C:\Users\bonar\.wdm\drivers\chromedriver\win32\96.0.4664.45\chromedriver.exe] found in cache
+21-Nov-21 19:59:54-***** Driver Initialized *****
+21-Nov-21 19:59:56-***** Browser launched *****
+21-Nov-21 19:59:59-***** Search Result for 'react' is displayed *****
+21-Nov-21 20:00:00-***** Advanced Search Page for 'react' is displayed *****
+21-Nov-21 20:00:06-***** One Result Found *****
+21-Nov-21 20:00:06-***** Found is <mvoloskov/decider> *****
+21-Nov-21 20:00:06-***** Expected Repository Found *****
+21-Nov-21 20:00:06-Apply CSS to React components conditionally, like a boss.
+className={ decide(styles, {
+    header: true,
+    mobile: props.isMobile,
+    narrow: parseInt(props.width) < 400,
+    hidden: (props.hidden !== "false" && Boolean(props.hidden)),
+    fixed: parseInt(props.width) >= 400 || !props.isMobile
+})
+***** Expected Repository Found *****
+Apply CSS to React components conditionally, like a boss.
+className={ decide(styles, {
+    header: true,
+    mobile: props.isMobile,
+    narrow: parseInt(props.width) < 400,
+    hidden: (props.hidden !== "false" && Boolean(props.hidden)),
+    fixed: parseInt(props.width) >= 400 || !props.isMobile
+})
+Apply CSS to React components conditionally, like a boss.
+className={ decide(styles, {
+    header: true,
+    mobile: props.isMobile,
+    narrow: parseInt(props.width) < 400,
+    hidden: (props.hidden !== "false" && Boolean(props.hidden)),
+    fixed: parseInt(props.width) >= 400 || !props.isMobile
+})
