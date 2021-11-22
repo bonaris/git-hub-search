@@ -7,6 +7,8 @@ config.read(".\\configuration\\config.ini")
 class ReadConfig:
     @staticmethod
     def get_url():
-        url=config.get('common-info', 'url')
-        return url
+        return config.get('common-info', 'url')
 
+    @staticmethod
+    def get_test_data_filename():
+        return config.get('common-info', 'test_data_file')

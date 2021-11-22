@@ -25,7 +25,7 @@ class AdvancedSearchPage:
         self.driver.find_element_by_id(self.with_so_many_stars_input_id).send_keys(stars_criteria)
 
     def select_licence(self, licence):
-        Select(self.driver.find_element_by_id(self.with_license_drop_box_id)).select_by_index(10)
+        Select(self.driver.find_element_by_id(self.with_license_drop_box_id)).select_by_index(licence)
 
     def set_followers(self, followers_criteria):
         self.driver.find_element_by_id(self.with_this_many_followers_id).send_keys(followers_criteria)
