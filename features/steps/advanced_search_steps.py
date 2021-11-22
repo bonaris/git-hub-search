@@ -1,6 +1,5 @@
-import logging
-
 import allure
+import time
 from allure_commons.types import AttachmentType
 from behave import *
 from selenium import webdriver
@@ -12,10 +11,13 @@ from pages.AdvancedSearchResultPage import AdvancedSearchResultPage
 from pages.FoundRepositoryPage import FoundRepositoryPage
 from utils.logger import Logger
 from utils.readProperty import ReadConfig
-import time
+from utils.search_data_type import search_test_data
+from utils.test_data_util import get_test_data_record
 
 base_url = ReadConfig.get_url()
 logger = Logger.loggen()
+test_data_filename = f".\\testdata\\{ReadConfig.get_test_data_filename()}"
+search_test_data = get_test_data_record(test_data_filename, 2)
 
 
 @given(u'github home page is open using Chrome browser')
@@ -36,7 +38,7 @@ def step_impl(context):
 def step_impl(context):
     global home_page
     home_page = HomePage(driver)
-    home_page.input_search_criteria('react')
+    home_page.input_search_criteria(search_test_data.get("initial_search_value", ""))
     time.sleep(1)
     home_page.click_search()
     time.sleep(1)
@@ -78,25 +80,25 @@ def step_impl(context):
 
 @when(u'user selects \'Javascript\' in <Written in this language> dropbox under <Advanced options>')
 def step_impl(context):
-    advanced_search_page.select_language("JavaScript")
+    advanced_search_page.select_language(search_test_data.get("language", ""))
     time.sleep(1)
 
 
 @when(u'user enters value \'>45\' in <With this many stars> field under <Repositories options>')
 def step_impl(context):
-    advanced_search_page.set_stars(">45")
+    advanced_search_page.set_stars(search_test_data.get("stars", ""))
     time.sleep(1)
 
 
 @when(u'user selects value \'Boost Software License 1.0\' in <With this license> dropbox under <Repositories options>')
 def step_impl(context):
-    advanced_search_page.select_licence('Boost Software License 1.0')
+    advanced_search_page.select_licence(search_test_data.get("license_index", ""))
     time.sleep(1)
 
 
 @when(u'user enters value \'>50\' in <With this many followers> field under <Users options>')
 def step_impl(context):
-    advanced_search_page.set_followers(">50")
+    advanced_search_page.set_followers(search_test_data.get("followers", ""))
     time.sleep(1)
 
 
@@ -111,7 +113,7 @@ def step_impl(context):
 @then(u'<mvoloskov/decider> repository is found as a single result')
 def step_impl(context):
     expected_found_results = 1
-    expected_repository_found = 'mvoloskov/decider'
+    expected_repository_found = f'mvoloskov/{search_test_data.get("expected_result", "")}'
     test_results_message = advanced_search_result_page.get_number_of_results_message()
     actual_found_results = int(test_results_message.split(" ")[0])
     if expected_found_results == actual_found_results:
@@ -122,10 +124,10 @@ def step_impl(context):
         assert False
 
     if expected_repository_found == advanced_search_result_page.get_found_repository_name():
-        logger.info("***** Found is <mvoloskov/decider> *****")
+        logger.info(f"***** Found is <{expected_repository_found}> *****")
         assert True
     else:
-        logger.info("***** Found is not <mvoloskov/decider>  *****")
+        logger.info(f"***** Found is not <{expected_repository_found}>  *****")
         assert False
 
     driver.save_screenshot(".\\screenshots\\" + "AdvancedSearchResult.png")
@@ -141,8 +143,7 @@ def step_impl(context):
 
 @then(u'repository page is displayed')
 def step_impl(context):
-    expected_repository = 'decider'
-    if expected_repository == repository_page.get_repository_name():
+    if search_test_data.get("expected_result", "") == repository_page.get_repository_name():
         logger.info("***** Expected Repository Found *****")
         assert True
     else:
